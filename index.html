@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Pedidos - Cálculo de Volumen</title>
+    <meta name="description"
+        content="Aplicación para gestionar pedidos con cálculo automático de volumen y exportación a Excel">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>
+                <svg class="icon-cube" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path
+                        d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
+                    <line x1="12" y1="22.08" x2="12" y2="12" />
+                </svg>
+                Gestión de Pedidos
+            </h1>
+            <p class="subtitle">Cálculo automático de volumen y peso volumétrico</p>
+        </header>
+
+        <div class="card form-card">
+            <h2>Nuevo Pedido</h2>
+            <form id="pedidoForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="numeroPedido">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                                <polyline points="14 2 14 8 20 8" />
+                                <line x1="16" y1="13" x2="8" y2="13" />
+                                <line x1="16" y1="17" x2="8" y2="17" />
+                            </svg>
+                            Nº Pedido
+                        </label>
+                        <input type="text" id="numeroPedido" placeholder="Ej: 6541" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="largo">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                                <polyline points="5 12 9 8" />
+                                <polyline points="5 12 9 16" />
+                                <polyline points="19 12 15 8" />
+                                <polyline points="19 12 15 16" />
+                            </svg>
+                            Largo (cm)
+                        </label>
+                        <input type="number" id="largo" placeholder="Ej: 60" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ancho">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <polyline points="12 5 16 9" />
+                                <polyline points="12 5 8 9" />
+                                <polyline points="12 19 16 15" />
+                                <polyline points="12 19 8 15" />
+                            </svg>
+                            Ancho (cm)
+                        </label>
+                        <input type="number" id="ancho" placeholder="Ej: 225" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alto">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20m0-20l-3 3m3-3l3 3" />
+                            </svg>
+                            Alto (cm)
+                        </label>
+                        <input type="number" id="alto" placeholder="Ej: 50" min="0" step="0.01" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="peso">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                            </svg>
+                            Peso Neto (kg)
+                        </label>
+                        <input type="number" id="peso" placeholder="Ej: 102" min="0" step="0.01" required>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19" />
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                        </svg>
+                        Agregar Pedido
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="limpiarFormBtn">
+                        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        Limpiar
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card table-card">
+            <div class="table-header">
+                <h2>Lista de Pedidos</h2>
+                <div class="table-actions">
+                    <button class="btn btn-danger" id="eliminarSeleccionadosBtn" disabled>
+                        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                        </svg>
+                        Eliminar Seleccionados
+                    </button>
+                    <button class="btn btn-success" id="exportarExcelBtn">
+                        <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="7 10 12 15 17 10" />
+                            <line x1="12" y1="15" x2="12" y2="3" />
+                        </svg>
+                        Exportar a Excel
+                    </button>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <table id="pedidosTable">
+                    <thead>
+                        <tr>
+                            <th class="checkbox-col">
+                                <input type="checkbox" id="selectAll" title="Seleccionar todos">
+                            </th>
+                            <th>Pedido</th>
+                            <th>Largo (cm)</th>
+                            <th>Ancho (cm)</th>
+                            <th>Alto (cm)</th>
+                            <th>Vol. (m³)</th>
+                            <th>Peso Neto (kg)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pedidosTableBody">
+                        <tr class="empty-row">
+                            <td colspan="7">
+                                <div class="empty-state">
+                                    <svg class="icon-large" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                        stroke-width="2">
+                                        <path
+                                            d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
+                                    </svg>
+                                    <p>No hay pedidos registrados</p>
+                                    <p class="hint">Completa el formulario para agregar tu primer pedido</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot id="pedidosTableFooter" style="display: none;">
+                        <tr class="totals-row">
+                            <td></td>
+                            <td><strong>TOTALES</strong></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td id="totalVolumen">0.000</td>
+                            <td id="totalPeso">0</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- SheetJS library for Excel export -->
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
