@@ -56,9 +56,20 @@
                                 <polyline points="19 12 15 8" />
                                 <polyline points="19 12 15 16" />
                             </svg>
-                            Largo (cm)
+                            Largo (mm)
                         </label>
-                        <input type="number" id="largo" placeholder="Ej: 60" min="0" step="0.01" required>
+                        <input type="number" id="largo" placeholder="Ej: 600" min="0" step="1" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="alto">
+                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2v20m0-20l-3 3m3-3l3 3" />
+                            </svg>
+                            Alto (mm)
+                        </label>
+                        <input type="number" id="alto" placeholder="Ej: 500" min="0" step="1" required>
                     </div>
 
                     <div class="form-group">
@@ -71,20 +82,9 @@
                                 <polyline points="12 19 16 15" />
                                 <polyline points="12 19 8 15" />
                             </svg>
-                            Ancho (cm)
+                            Ancho (mm)
                         </label>
-                        <input type="number" id="ancho" placeholder="Ej: 225" min="0" step="0.01" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="alto">
-                            <svg class="icon-small" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2">
-                                <path d="M12 2v20m0-20l-3 3m3-3l3 3" />
-                            </svg>
-                            Alto (cm)
-                        </label>
-                        <input type="number" id="alto" placeholder="Ej: 50" min="0" step="0.01" required>
+                        <input type="number" id="ancho" placeholder="Ej: 2250" min="0" step="1" required>
                     </div>
 
                     <div class="form-group">
@@ -148,9 +148,9 @@
                                 <input type="checkbox" id="selectAll" title="Seleccionar todos">
                             </th>
                             <th>Pedido</th>
-                            <th>Largo (cm)</th>
-                            <th>Ancho (cm)</th>
-                            <th>Alto (cm)</th>
+                            <th>Largo (mm)</th>
+                            <th>Alto (mm)</th>
+                            <th>Ancho (mm)</th>
                             <th>Vol. (m³)</th>
                             <th>Peso Neto (kg)</th>
                         </tr>

@@ -19,9 +19,9 @@ limpiarFormBtn.addEventListener('click', limpiarFormulario);
 
 // Función para calcular el volumen en metros cúbicos
 function calcularVolumen(largo, ancho, alto) {
-    // Convertir de cm³ a m³ dividiendo entre 1,000,000
-    const volumenCm3 = largo * ancho * alto;
-    const volumenM3 = volumenCm3 / 1000000;
+    // Convertir de mm³ a m³ dividiendo entre 1,000,000,000
+    const volumenMm3 = largo * ancho * alto;
+    const volumenM3 = volumenMm3 / 1000000000;
     return volumenM3;
 }
 
@@ -112,9 +112,9 @@ function renderizarTabla() {
                 <input type="checkbox" data-id="${pedido.id}" ${pedido.seleccionado ? 'checked' : ''}>
             </td>
             <td>${pedido.numeroPedido}</td>
-            <td>${pedido.largo.toFixed(2)}</td>
-            <td>${pedido.ancho.toFixed(2)}</td>
-            <td>${pedido.alto.toFixed(2)}</td>
+            <td>${pedido.largo.toFixed(0)}</td>
+            <td>${pedido.alto.toFixed(0)}</td>
+            <td>${pedido.ancho.toFixed(0)}</td>
             <td>${pedido.volumen.toFixed(3)}</td>
             <td>${Math.round(pedido.pesoNeto)}</td>
         `;
@@ -193,15 +193,15 @@ function exportarAExcel() {
     const data = [];
 
     // Encabezados
-    data.push(['Pedido', 'Largo (cm)', 'Ancho (cm)', 'Alto (cm)', 'Vol. (m³)', 'Peso Neto (kg)']);
+    data.push(['Pedido', 'Largo (mm)', 'Alto (mm)', 'Ancho (mm)', 'Vol. (m³)', 'Peso Neto (kg)']);
 
     // Pedidos
     pedidos.forEach(p => {
         data.push([
             p.numeroPedido,
             p.largo,
-            p.ancho,
             p.alto,
+            p.ancho,
             p.volumen,
             Math.round(p.pesoNeto)
         ]);
@@ -232,10 +232,10 @@ function exportarAExcel() {
     const columnWidths = [
         { wch: 12 }, // Pedido
         { wch: 12 }, // Largo
-        { wch: 12 }, // Ancho
         { wch: 12 }, // Alto
+        { wch: 12 }, // Ancho
         { wch: 12 }, // Volumen
-        { wch: 18 }  // Peso Vol.
+        { wch: 18 }  // Peso Neto
     ];
     ws['!cols'] = columnWidths;
 
